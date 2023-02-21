@@ -2,18 +2,18 @@ import React from "react";
 import classNames from "classnames";
 import "components/InterviewerListItem.scss";
 
+
+
 export default function InterviewerListItem(props) {
-  console.log(props);
-  //const [selectionStatus, setSelectionStatus] = useState(false);
+  console.log('props:',props);
+  
   function showName() {
     return props.selected ? props.name : '';
   }
 
   const interviewerListItemClass = classNames(
     'interviewers__item', 
-    {
-      'interviewers__item--selected ': props.selected,
-    }
+    {'interviewers__item--selected ': props.selected}
   )
 
   return (
