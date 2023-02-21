@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
-import "components/InterviewerList.scss";
+import "components/InterviewerListItem.scss";
 
-export default function InterviewerListItem() {
-  const [selectionStatus, setSelectionStatus] = useState(false);
-
-  if (selectionStatus === true) {
-    //highlight the item with a white background and show the name of the interviewer.
-  } else {
-    //showing only the image of the interviewer
+export default function InterviewerListItem(props) {
+  console.log(props);
+  //const [selectionStatus, setSelectionStatus] = useState(false);
+  function showName() {
+    return props.selected ? props.name : '';
   }
+
+  const interviewerListItemClass = classNames(
+    'interviewers__item', 
+    {
+      'interviewers__item--selected ': props.selected,
+    }
+  )
+
   return (
-    <form></form>
+    <li 
+      className={interviewerListItemClass}
+      onClick={props.setInterviewer}
+    >
+      <img
+        className="interviewers__item-image"
+        src={props.avatar}
+        alt={props.name}
+    />
+      {showName()}
+    </li>
   );
 }
