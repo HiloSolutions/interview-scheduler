@@ -15,6 +15,7 @@ export default function InterviewerList(props) {
       />
     )
   })
+  console.log('interviewers:',props);
   return (
     <ul className="interviewers__list">{interviewers}</ul>
   );
