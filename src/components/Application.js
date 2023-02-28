@@ -1,87 +1,33 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import useApplicationData from "../hooks/useApplicationData";
 import Appointment from "./Appointment";
 import DayList from "components/DayList";
 import "components/Application.scss";
-import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
+import { 
+  getAppointmentsForDay, 
+  getInterviewersForDay, 
+  getInterview 
+} from "helpers/selectors";
 
 
 
 
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {}
-  });
+  const {
+    state,
+    setDay,
+    bookInterview,
+    deleteInterview
+  } = useApplicationData();
 
-
-  const setDay = day => setState({ ...state, day }); //come back to this as this shouldnt be here (last task thursday)
-
-  useEffect(() => {
-    Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
-    ]).then((all) => {
-      setState(prev => ({
-        ...prev,
-        days: all[0].data,
-        appointments: all[1].data,
-        interviewers: all[2].data
-      }));
-    });
-  }, []);
-
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-
-  //BOOK INTERVIEWS (create appt)
-  const bookInterview = (apptID, interview) => {
-
-    const appointment = {
-      ...state.appointments[apptID],
-      interview: { ...interview }
-    };
-
-    const appointments = {
-      ...state.appointments,
-      [apptID]: appointment
-    };
-
-    return axios.put(`/api/appointments/${apptID}`, {
-      interview
-    })
-      .then(res => {
-        setState({
-          ...state,
-          appointments
-        });
-
-        return { status: 204 };
-      });
-  };
-
-
-  // DELETE INTERVIEWS (create appt)
-  const deleteInterview = (apptID) => {
-    return axios.delete(`/api/appointments/${apptID}`, {})
-      .then(res =>({ status: 204 }));
-  };
-
-  // EDIT INTERVIEW
-  const editInterview = (apptID) => {
-    console.log("edit interview", apptID)
-  };
-
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const schedule =
     Object.values(dailyAppointments).map((i) => {
       const interview = getInterview(state, i.interview);
-
+      console.log('state',interview);
       return (
         <Appointment
           key={i.id}
@@ -89,13 +35,10 @@ export default function Application(props) {
           time={i.time}
           interview={interview}
           bookInterview={bookInterview}
-          deleteInterview={deleteInterview}
-          editInterview={editInterview}
           interviewers={interviewers}
         />
       )
     })
-
 
   return (
     <main className="layout">
