@@ -25,6 +25,5 @@ export default function useVisualMode(initial) {
   }
 
 const mode = history.slice(-1)[0];
-//console.log('histoy',mode);
 return { mode, transition, back };
 };

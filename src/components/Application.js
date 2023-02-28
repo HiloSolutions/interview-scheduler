@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import useApplicationData from "../hooks/useApplicationData";
 import Appointment from "./Appointment";
 import DayList from "components/DayList";
 import "components/Application.scss";
@@ -10,7 +10,6 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "help
 
 
 export default function Application(props) {
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -63,14 +62,14 @@ export default function Application(props) {
         });
 
         return { status: 204 };
-      })
+      });
   };
 
 
   // DELETE INTERVIEWS (create appt)
   const deleteInterview = (apptID) => {
     return axios.delete(`/api/appointments/${apptID}`, {})
-      .then(res =>({ status: 204 }))
+      .then(res =>({ status: 204 }));
   };
 
   // EDIT INTERVIEW
