@@ -64,24 +64,19 @@ export default function Application(props) {
 
         return { status: 204 };
       })
-      .catch(error => {
-        return "error in bookInterview";
-      });
-
   };
 
 
   // DELETE INTERVIEWS (create appt)
-  const deleteInterview = (apptID, interview) => {
-    console.log("deleting", apptID, interview);
+  const deleteInterview = (apptID) => {
     return axios.delete(`/api/appointments/${apptID}`, {})
-      .then(res => {
-        return { status: 204 };
-      })
-      .catch(error => {
-        return "error in deleteInterview";
-      });
-  }
+      .then(res =>({ status: 204 }))
+  };
+
+  // EDIT INTERVIEW
+  const editInterview = (apptID) => {
+    console.log("edit interview", apptID)
+  };
 
 
   const schedule =
@@ -96,6 +91,7 @@ export default function Application(props) {
           interview={interview}
           bookInterview={bookInterview}
           deleteInterview={deleteInterview}
+          editInterview={editInterview}
           interviewers={interviewers}
         />
       )
