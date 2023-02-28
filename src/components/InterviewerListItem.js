@@ -5,7 +5,6 @@ import "components/InterviewerListItem.scss";
 
 
 export default function InterviewerListItem(props) {
-  console.log('props:',props);
   
   function showName() {
     return props.selected ? props.name : '';

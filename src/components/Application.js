@@ -10,7 +10,7 @@ import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "help
 
 
 export default function Application(props) {
-  //console.log(1, props.interview);
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -33,22 +33,61 @@ export default function Application(props) {
         interviewers: all[2].data
       }));
     });
-  },[]);
+  }, []);
 
 
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
 
-  //Book interviiews (create appt)
-  const bookInterview = (id, interview) => {
-    console.log('book interview',id, interview);
+
+  //BOOK INTERVIEWS (create appt)
+  const bookInterview = (apptID, interview) => {
+
+    const appointment = {
+      ...state.appointments[apptID],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [apptID]: appointment
+    };
+
+    return axios.put(`/api/appointments/${apptID}`, {
+      interview
+    })
+      .then(res => {
+        setState({
+          ...state,
+          appointments
+        });
+
+        return { status: 204 };
+      })
+      .catch(error => {
+        return "error in bookInterview";
+      });
+
   };
+
+
+  // DELETE INTERVIEWS (create appt)
+  const deleteInterview = (apptID, interview) => {
+    console.log("deleting", apptID, interview);
+    return axios.delete(`/api/appointments/${apptID}`, {})
+      .then(res => {
+        return { status: 204 };
+      })
+      .catch(error => {
+        return "error in deleteInterview";
+      });
+  }
 
 
   const schedule =
     Object.values(dailyAppointments).map((i) => {
       const interview = getInterview(state, i.interview);
-      console.log('i',i);
+
       return (
         <Appointment
           key={i.id}
@@ -56,6 +95,7 @@ export default function Application(props) {
           time={i.time}
           interview={interview}
           bookInterview={bookInterview}
+          deleteInterview={deleteInterview}
           interviewers={interviewers}
         />
       )
