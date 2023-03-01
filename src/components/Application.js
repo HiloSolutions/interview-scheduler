@@ -27,13 +27,13 @@ export default function Application(props) {
   const schedule =
     Object.values(dailyAppointments).map((i) => {
       const interview = getInterview(state, i.interview);
-      console.log('state',interview);
       return (
         <Appointment
           key={i.id}
           id={i.id}
           time={i.time}
           interview={interview}
+          deleteInterview={deleteInterview}
           bookInterview={bookInterview}
           interviewers={interviewers}
         />
