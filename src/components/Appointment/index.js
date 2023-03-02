@@ -26,7 +26,7 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  
+
   //Transition to CREATE mode
   const onAdd = () => {
     transition(CREATE);
@@ -51,7 +51,7 @@ export default function Appointment(props) {
 
     props.bookInterview(props.id, interview)
       .then((res) => transition(SHOW))
-      .catch((err) => transition(ERROR_SAVE, true));
+      .catch((err) => transition(ERROR_SAVE));
   };
 
   //delete interview
