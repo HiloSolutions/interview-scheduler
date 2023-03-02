@@ -3,10 +3,10 @@ import useApplicationData from "../hooks/useApplicationData";
 import Appointment from "./Appointment";
 import DayList from "components/DayList";
 import "components/Application.scss";
-import { 
-  getAppointmentsForDay, 
-  getInterviewersForDay, 
-  getInterview 
+import {
+  getAppointmentsForDay,
+  getInterviewersForDay,
+  getInterview
 } from "helpers/selectors";
 
 

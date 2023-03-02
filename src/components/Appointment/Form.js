@@ -14,13 +14,14 @@ export default function Form(props) {
     setStudent("");
     setInterviewer(null);
   };
-  
+
   //cancel interview, calls reset function
   const cancel = () => {
     reset();
     props.onCancel();
   };
 
+  //name and interviewer cannot be blank b4 submitting form
   function validate() {
     if (student === "") {
       setError("Student name cannot be blank");
@@ -29,15 +30,15 @@ export default function Form(props) {
     if (interviewer === null) {
       setError("Please select an interviewer");
       return;
-    }  
-  
+    }
+
     props.onSave(student, interviewer);
   }
 
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form 
+        <form
           autoComplete="off"
           onSubmit={event => event.preventDefault()}
         >

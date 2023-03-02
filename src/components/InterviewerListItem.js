@@ -5,18 +5,18 @@ import "components/InterviewerListItem.scss";
 
 
 export default function InterviewerListItem(props) {
-  
+
   function showName() {
     return props.selected ? props.name : '';
   }
 
   const interviewerListItemClass = classNames(
-    'interviewers__item', 
-    {'interviewers__item--selected ': props.selected}
+    'interviewers__item',
+    { 'interviewers__item--selected ': props.selected }
   )
 
   return (
-    <li 
+    <li
       className={interviewerListItemClass}
       onClick={props.onChange}
     >
@@ -24,7 +24,7 @@ export default function InterviewerListItem(props) {
         className="interviewers__item-image"
         src={props.avatar}
         alt={props.name}
-    />
+      />
       {showName()}
     </li>
   );

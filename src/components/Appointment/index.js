@@ -26,21 +26,23 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+  
   //Transition to CREATE mode
   const onAdd = () => {
     transition(CREATE);
-  }
+  };
+
   //Back to empty mode
   const onCancel = () => {
     back();
-  }
+  };
 
   //Save interview (save appt)
   const save = (name, interviewer) => {
-    if(!interviewer || !name) {
+    if (!interviewer || !name) {
       return;
     }
-    
+
     transition(SAVING);
     const interview = {
       student: name,
@@ -49,21 +51,19 @@ export default function Appointment(props) {
 
     props.bookInterview(props.id, interview)
       .then((res) => transition(SHOW))
-      .catch((err) => transition(ERROR_SAVE, true))
+      .catch((err) => transition(ERROR_SAVE, true));
   };
 
   //delete interview
   const cancelInterview = () => {
     transition(DELETING);
     props.deleteInterview(props.id, props.interview)
-      .then((res) => {
-        transition(EMPTY);
-      })
-      .catch((err) => transition(ERROR_DELETE, true))
-  }
+      .then((res) => transition(EMPTY))
+      .catch((err) => transition(ERROR_DELETE, true));
+  };
 
   return (
-    <article 
+    <article
       className="appointment"
       data-testid="appointment"
     >
@@ -113,13 +113,13 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && (
         <Error
           message="Save Error"
-          onClose={() => console.log("save err")}
+          onClose={onCancel}
         />
       )}
       {mode === ERROR_DELETE && (
         <Error
           message="Delete Error"
-          onClose={() => console.log("delete err")}
+          onClose={onCancel}
         />
       )}
     </article>
