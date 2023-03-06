@@ -46,7 +46,7 @@ storiesOf("DayListItem", module)
   .add("Selected", () => <DayListItem name="Monday" spots={5} selected />)
   .add("Full", () => <DayListItem name="Monday" spots={0} />)
   .add("Clickable", () => (
-    <DayListItem name="Tuesday" onChange={action("onChange")} spots={5} />
+    <DayListItem name="Tuesday" setDay={action("onChange")} spots={5} />
   ));
 
 
