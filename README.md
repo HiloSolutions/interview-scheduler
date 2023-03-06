@@ -1,4 +1,9 @@
 # Interview Scheduler
+A React application that allows users to book, edit and cancel their interviews. 
+
+## Deployment
+Follow the instructions below to get set up with the scheduler-api
+
 
 ## Setup
 
@@ -20,6 +25,12 @@ npm test
 
 ```sh
 npm run storybook
+```
+
+Running Cypress Visual Testbed
+
+```sh
+npm run cypress
 ```
 
 ## Walkthrough
@@ -49,3 +60,11 @@ Hovering over an appointment will allow you to click the delete button to remove
 #### Error Messages:
 If, for some reason, booking or saving an interview was not successful, you will see a yellow error message on the screen.
 ![Select Day](./public/images/error.png)
+
+## Dependencies
+1. axios
+2. @testing-library/react-hooks
+3. react-test-renderer
+
+## Sever
+The server side code is available at https://github.com/HiloSolutions/scheduler-api

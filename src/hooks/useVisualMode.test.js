@@ -1,7 +1,6 @@
 import { act, renderHook} from "@testing-library/react-hooks";
 
 import useVisualMode from "./useVisualMode.js";
-console.log(useVisualMode);
 
 
 const FIRST = "FIRST";
